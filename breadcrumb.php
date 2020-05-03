@@ -22,9 +22,9 @@
                         </div>
                     </div>
                     <div class="col-3 ml-auto">
-                        <form class="au-form-icon--sm" action="" method="post">
-                            <input class="au-input--w300 au-input--style2 ml-auto" type="text" placeholder="Search for datas &amp; reports...">
-                            <button class="au-btn--submit2" type="submit">
+                        <form class="au-form-icon--sm" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="get">
+                            <input class="au-input--w300 au-input--style2 ml-auto" name = "input" type="text" placeholder="Search for course">
+                            <button class="au-btn--submit2" name ="search" type="submit">
                                 <i class="zmdi zmdi-search"></i>
                             </button>
                         </form> 
@@ -32,5 +32,10 @@
                 </div>
              </div>
         </section>
+    <?php
+        if(isset($_REQUEST['search'])){
+            $search = addslashes($_GET['input']);
+        }
+    ?>
 </body>
 </html>

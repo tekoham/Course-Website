@@ -6,13 +6,6 @@
 <html lang="en">
 
 <head>
-    <!-- Required meta tags-->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="au theme template">
-    <meta name="author" content="Hau Nguyen">
-    <meta name="keywords" content="au theme template">
-
     <!-- Title Page-->
     <title>Home</title>
 
@@ -44,6 +37,7 @@
     <div class="page-wrapper">
         <!-- HEADER DESKTOP-->
         <?php
+        include('./controllers/leave_course_controller.php');
         $connect = mysqli_connect('localhost','id13279549_minh','Minh(1234567','id13279549_website_database');
         $title = mysqli_query($connect,"SELECT DISTINCT type FROM courses; ");
             if($_SESSION['start']){
@@ -66,7 +60,11 @@
             <!-- END BREADCRUMB-->
             
             <?php while($array1 = mysqli_fetch_array($title)){ 
-                $course = mysqli_query($connect,"SELECT * FROM courses WHERE type='{$array1['type']}'; ");
+                if ($search)
+                {
+                    $course = mysqli_query($connect,"SELECT * FROM courses WHERE type='{$array1['type']}' and course_name LIKE '%$search%'; ");
+                }
+                else $course = mysqli_query($connect,"SELECT * FROM courses WHERE type='{$array1['type']}'; ");
                 echo"
                 <!-- WELCOME-->
                 <section class=\"welcome p-t-10\">
@@ -130,7 +128,9 @@
                     </section>
                 <form>
                 <!-- END PROGRAM COURSE-->
-                ";}           
+                
+                ";}
+                $search = "";
             ?>    
             
                        

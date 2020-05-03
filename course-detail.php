@@ -6,13 +6,6 @@
 <html lang="en">
 
 <head>
-    <!-- Required meta tags-->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="au theme template">
-    <meta name="author" content="Hau Nguyen">
-    <meta name="keywords" content="au theme template">
-
     <!-- Title Page-->
     <title>Home</title>
 
@@ -45,8 +38,8 @@
         <?php
             $connect = mysqli_connect('localhost','DaoKien','29082000', 'website_database');  
              if($_SESSION['start']){
-                include('login-navbar.php');
                 include('./controllers/enroll_controller.php');
+                include('login-navbar.php');
                 include('./controllers/leave_course_controller.php');
             }
             else {
@@ -60,7 +53,8 @@
             <!-- STATISTIC-->
             <?php 
                 $course = mysqli_query($connect,"SELECT * FROM courses WHERE course_id = '{$_SESSION['course_id']}'; ");
-                $result = mysqli_fetch_array($course);
+                $course1 = mysqli_query($connect,"SELECT * FROM `courses` LEFT JOIN `teacher` ON courses.teacher_id = teacher.teacher_id WHERE course_id = '{$_SESSION['course_id']}'; ");
+                $result = mysqli_fetch_array($course1);
                 echo"
                     <form action=\"index.php\" method=\"GET\" enctype=\"multipart/form-data\">
                         <section>
@@ -80,6 +74,11 @@
                                     </div>                       
                                     <div class=\"col mt-5\">
                                         <h1 class=\"text-white\">{$result['course_name']}</h1> <br>
+                                        <div>
+                                            <h4 class=\"text-black\">Teacher: {$result['name']}</h4>
+                                            <h4 class=\"text-black\">Contact: {$result['email']}</h4>
+                                            <h4 class=\"text-black\">Degree: {$result['degree']}</h4> <br>
+                                        </div>
                                         <div class=\"course-descriptions text-dark\">
                                             {$result['description']}
                                         </div> 
