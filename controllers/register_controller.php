@@ -28,7 +28,7 @@
                         alert("This email has been used");
                     } else {
                         $result = mysqli_query($connect, "
-                        INSERT INTO user (name, email, password) VALUE ('$name', '$email', '$password')
+                        INSERT INTO user (name, email, password, permission_id) VALUE ('$name', '$email', '$password',2)
                         ");
                         if($result){
                             alert("Sign Up successfully");
