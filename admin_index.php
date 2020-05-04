@@ -39,75 +39,19 @@
     <!-- Logout -->
     <?php
         session_start();
-        if(isset($_POST['Logout'])){
-            $_SESSION['start'] = "";
-            header("Location: index.php");
-        }        
         include('./controllers/login_controller.php');
         include('./controllers/add_delete_course.php');
     ?>
     <div class="page-wrapper">
     <!-- Header -->   
-        <header class="header-desktop3 d-none d-lg-block">
-                <div class="section__content section__content--p35">
-                    <div class="header3-wrap">
-                        <div class="header__logo">
-                            <a href="#">
-                                <img src="images/icon/indexlogo.png" alt="CoolAdmin" />
-                            </a>
-                        </div>  
-                        <div class="header__navbar">
-                            <ul class="list-unstyled">
-                                <li class="has-sub">
-                                    <a href="index.php">
-                                        <i class="fa fa-home"></i>Home
-                                        <span class="bot-line"></span>
-                                    </a>                               
-                                </li>                                                       
-                                <li class="has-sub">                                 
-                                    <a href="website_info.php">
-                                        <i class="fas fa-desktop"></i>Website Info
-                                        <span class="bot-line"></span>
-                                    </a> 
-                                </li>
-                            </ul>
-                        </div>                 
-                        <div class="header__tool">
-                            <div class="account-wrap">
-                                <div class="account-item account-item--style2 clearfix js-item-menu">
-                                    <div class="image">
-                                        <img src="images/icon/izuku.png" alt="izuku_user" />
-                                    </div>
-                                    <div class="content">
-                                        <a class="js-acc-btn" href="#">Admin</a>
-                                    </div>
-                                    <div class="account-dropdown js-dropdown">
-                                        <div class="info clearfix">
-                                            <div class="image">
-                                                <a href="#">
-                                                    <img src="images/icon/izuku.png" alt="izuku_user" />
-                                                </a>
-                                            </div>
-                                            <div class="content">
-                                                <h5 class="name">
-                                                    Admin
-                                                </h5>
-                                                <span class="email">admin@gmail.com</span>
-                                            </div>
-                                        </div>           
-                                        <div class="account-dropdown__footer">
-                                            <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST" enctype="multipart/form-data">
-                                                <button class="au-btn au-btn--block au-btn--green m-b-20" type="submit" name="Logout">
-                                                    <i class="zmdi zmdi-power"></i> Logout</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-        </header> 
+        <?php
+            include ('admin_navbar.php');
+            if(isset($_POST['Logout']))
+            {
+                $_SESSION['start'] = "";
+                header("Location: index.php");
+            }
+        ?>
             <!-- MAIN CONTENT-->
             <div class="main-content">
                 <div class="section__content section__content--p30">
@@ -131,7 +75,7 @@
                                             </tr>
                                         </thead>
                                     <?php
-                                        $connect = mysqli_connect('localhost','DaoKien','29082000','website_database');
+                                        $connect = mysqli_connect('localhost','id13279549_minh','Minh(1234567','id13279549_website_database');
                                         $course = mysqli_query($connect,"SELECT * FROM courses ;");
                                         while($array = mysqli_fetch_array($course)){
                                         echo"
