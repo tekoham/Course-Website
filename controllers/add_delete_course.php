@@ -1,5 +1,5 @@
 <?php
-    $connect = mysqli_connect('localhost','DaoKien','29082000','website_database');
+    $connect = mysqli_connect('localhost','id13279549_minh','Minh(1234567','id13279549_website_database');
     $course_name = $type = $description = $image_link = $youtube_link = $teacher_id = "";
 
     if(isset($_POST['add'])){
