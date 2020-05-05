@@ -1,5 +1,6 @@
 <?php
-        $connect = mysqli_connect('localhost','id13279549_minh','Minh(1234567','id13279549_website_database');        $email = $password = "";
+        $connect = mysqli_connect('localhost','id13279549_minh','Minh(1234567','id13279549_website_database');        
+        $email = $password = "";
         function alert($message) {
             echo "<script type='text/javascript'>alert('$message');</script>";
         }
@@ -17,8 +18,10 @@
                     $_SESSION['start'] = "start";
                     $_SESSION['email'] = $user['email'];
                     $_SESSION['name'] = $user['name'];  
-                    $_SESSION['user_id'] = $user['user_id'];                                                       
-                    header("Location: index.php");
+                    $_SESSION['user_id'] = $user['user_id'];
+                    $_SESSION['permission_id'] = $user['permission_id'];
+                    if ($_SESSION['permission_id'] == 1) header("Location: admin_index.php");
+                    else if ($_SESSION['permission_id'] == 2) header("Location: index.php");
                 }   else $alert = "Wrong Password";
             }else $alert = "This email has not been registered";
             if ($alert) alert($alert);
