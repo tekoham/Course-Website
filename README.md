@@ -1,6 +1,6 @@
 # Course-Website
 <!-- Headings -->
-![Markdown Logo](https://uet.vnu.edu.vn/wp-content/uploads/2019/03/logo-outline-1.png)
+![Markdown Logo](https://github.com/tekoham/Course-Website/blob/master/images/uet.png)
 # BÁO CÁO BÀI TẬP LỚN CSDL
 ## TRANG WEB HỌC ONLINE
 * Môn học: Cơ sở dữ liệu
