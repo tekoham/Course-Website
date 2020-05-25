@@ -2,14 +2,14 @@
 <!-- Headings -->
 ![Markdown Logo](https://uet.vnu.edu.vn/wp-content/uploads/2019/03/logo-outline-1.png)
 # BÁO CÁO BÀI TẬP LỚN CSDL
-## TRANG WEB MUA BÁN SÁCH ONLINE
+## TRANG WEB HỌC ONLINE
 * Môn học: Cơ sở dữ liệu
 * Mã lớp: INT2207 1
 * Giáo viên: TS.Lê Hồng Hải
 * Các thành viên trong nhóm:
-    * Phùng Quốc Mạnh
-    * Phạm Thị Bích Ngọc
-    * Nguyễn Xuân Lâm
+    * Phạm Công Minh
+    * Đào Trung Kiên
+    * Nguyễn Hồng Thái
 <!-- CONTENT -->
 ### <strong> I. MÔ TẢ DỰ ÁN </strong>
 #### 1. Mô tả chung:
