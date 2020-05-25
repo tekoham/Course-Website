@@ -15,26 +15,20 @@
 #### 1. Mô tả chung:
 - Tham gia khoá học lập trình để nâng cao kỹ năng bản thân!
 #### 2. Mô tả chức năng
-a. Các chức năng của khách hàng
+a. Các chức năng của người dùng
 |Chức năng|Mô tả|
 |--------------|---------------|
-|Đăng ký|Khách hàng nhập các thông tin bao gồm: tên, email, mật khẩu, xác nhận mật khẩu và bấm Đăng ký để tiến hành đăng ký|
-|Đăng nhập|Khách hàng nhập thông tin bao gồm: email, mật khẩu và bấm đăng nhập để tiến hành hăng nhập|
-|Xem các sản phẩm|Khách hàng có thể xem các sản phẩm của cửa hàng hoặc xem thông tin của từng sản phẩm bao gồm: tên sách, tên tác giả, thể loại, mô tả, giá thành, số lượng còn lại trong kho|
-|Thêm sản phẩm vào giỏ hàng|Sau khi chọn được sản phẩm, khách hàng có thể lựa chọn số lượng và thêm vào giỏ hàng, xóa sản phẩm khỏi giỏ hàng|
-|Tiến hành đặt mua|Khách hàng có thể lựa chọn phương thức vận chuyển, nhập các thông tin cần thiết như: tên, số điện thoại, địa chỉ để tiến hành đặt hàng các sản phẩm có trong giỏ hàng|
-|Xem thông tin đơn hàng|Khách hàng có thể xem thông tin đơn hàng bao gồm: tên các sản phẩm, mã vận đơn, ngày đặt hàng, tình trạng đơn hàng và có thể xem chi tiết các đơn hàng bao gồm: chi tiết các sản phẩm, thông tin khác hàng, tổng tiền cần phải thanh toán|
+|Đăng ký|Người dùng đăng ký tài khoản với : email , tên , mật khẩu |
+|Đăng nhập|Người dùng đăng nhập với email và mật khẩu đã đăng ký|
+|Tham gia khóa học|Người dùng có thể tham gia khóa học sau khi đã đăng nhập và ấn enroll me|
+|Rời khóa khóa học|Người dùng có thể rời khóa học bằng cách ấn leave course|
 
-b. Các chức năng của cửa hàng(Người quản lý)
+b. Các chức năng của Admin
 |Chức năng|Mô tả|
 |--------------|---------------|
-|Đăng nhập|Người quản lý có thể đăng nhập bằng tài khoản được cung cấp trước bao gồm: email, mật khẩu để tiến hành đăng nhập|
-|Cập nhật thông tin|Người quản lý có thể chỉnh sửa thông tin của bản thân người quản lý đó bao gồm các thông tin như: tên, số điện thoại, ảnh đại diện, email, mật khẩu |
-|Thêm/xóa người quản lý|Người quản lý có thể thêm người quản lý khác bao gồm các thông tin như: tên, số điện thoại, ảnh đại diện, email, mật khẩu hoặc xóa người quản lý khác|
-|Quản lý doanh thu|Người quản lý có thể xem doanh thu của cửa hàng theo từng ngày, từng tháng hoặc từ ngày này đến ngày khác cũng như xem thông tin cơ bản về các hóa đơn được đặt trong ngày đó ( bao gồm mã hóa đơn và tổng tiền)|
-|Quản lý sản phẩm|Người quản lý có thể xem số lượng sản phẩm còn lại, chi tiết của từng sản phẩm, ngày nhập kho của từng sản phẩm, có thể xem, sửa hoặc xóa sản phẩm trong kho hoặc thêm các sản phẩm mới|
-|Quản lý khách hàng|Người quản lý có thể xem thông tin tài khoản khách hàng, ngày tạo tài khoản, tìm kiếm thông tin , sửa thông tin, xóa tài khoản khách hàng|
-|Quản lý hóa đơn|Người quản lý có thể xem toàn bộ hóa đơn của cửa hàng, xem chi tiết từng hóa đơn|
+|Xem cơ sở dữ liệu bảng khóa học|Sau khi đăng nhập bằng tài khoản admin , admin được xem bảng khóa học|
+|Xóa khóa học|Admin có thể xóa khóa học bằng cách ấn vào biểu tượng xóa|
+|Thêm khóa học|Admin có thể thêm khóa học bằng cách điền cách thông tin cần thiết và ấn nút add|
 #### 3. Mô tả cơ sở dữ liệu
 a. Ứng dụng của cơ sở dữ liệu
 - Quản lý tài khoản khách hàng
