@@ -21,7 +21,7 @@ a. Các chức năng của người dùng
 |Đăng ký|Người dùng đăng ký tài khoản với : email , tên , mật khẩu |
 |Đăng nhập|Người dùng đăng nhập với email và mật khẩu đã đăng ký|
 |Tham gia khóa học|Người dùng có thể tham gia khóa học sau khi đã đăng nhập và ấn enroll me|
-|Rời khóa khóa học|Người dùng có thể rời khóa học bằng cách ấn leave course|
+|Rời khóa học|Người dùng có thể rời khóa học bằng cách ấn leave course|
 
 b. Các chức năng của Admin
 |Chức năng|Mô tả|
