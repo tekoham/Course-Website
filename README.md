@@ -46,191 +46,97 @@ b. Các yêu cầu về dữ liệu cần lưu trữ:
 ![ER](https://github.com/tekoham/Course-Website/blob/master/images/designer.png)
 
 ### <strong>III. CÁC CÂU LỆNH TRUY VẤN SQL </strong>
-#### 1. Các truy vấn liên quan đến thao tác của khách hàng và lấy dữ liệu trong CSDL
-* Đăng ký:
-    * Kiểm tra xem email có tồn tại hay không (Nếu đã tồn tại sẽ trả về bảng có số hàng > 0):
+* Kết nối đến cơ sở dữ liệu
     ~~~~sql
-    SELECT * FROM users WHERE email= '$email'
+    $connect = mysqli_connect('localhost','id13279549_minh','Minh(1234567','id13279549_website_database');
     ~~~~
-    * Nếu email chưa tồn tại sẽ thêm tài khoản của khách hàng đăng ký vào CSDL:
+* Đăng ký:
+    * Lấy bảng có email trùng với email người dùng đăng ký:
     ~~~~sql
-    INSERT INTO users (name, email, password, created_at) VALUE ('$name', '$email', '$password', NOW())
+    $result = mysqli_query($connect, "
+                        SELECT email FROM user WHERE email = '$email'
+                    ");
+    ~~~~
+    * Đếm số hàng của bảng trên (nếu > 0 tức là email đã có người khác đăng ký)
+    ~~~~sql
+    $num = mysqli_num_rows($result);
+    ~~~~
+    * Nếu biến $num trên = 0 , thêm tài khoản người dùng vào database (permission = 2 tức là user , 1 là admin)
+    ~~~~sql
+    $result = mysqli_query($connect, "
+                        INSERT INTO user (name, email, password, permission_id) VALUE ('$name', '$email', '$password', 2)
+                        ");
     ~~~~
 * Đăng nhập:
-    * Kiểm tra tài khoản và mật khẩu (Nếu đúng sẽ trả về bảng có số hàng > 0):
+    * Lấy bảng có email trùng với email người dùng nhập vào
     ~~~~sql
-    SELECT * FROM users WHERE email='$email' and password = '$password'
+    $checkemail = mysqli_query($connect,"SELECT * FROM user WHERE email ='$email'; ");
     ~~~~
-* Gian hàng:
-    * Lấy thông tin sản phẩm trong CSDL đăng lên gian hàng: 
-        * Sắp xếp theo sản phẩm mới nhất:
-        ~~~~sql
-        SELECT * FROM books ORDER BY dateModified DESC
-        ~~~~
-        * Sắp xếp theo giá từ thấp tới cao:
-        ~~~~sql
-        SELECT * FROM books ORDER BY price ASC
-        ~~~~
-        * Sắp xếp theo giá từ cao xuống thấp:
-        ~~~~sql
-        SELECT * FROM books ORDER BY price DESC
-        ~~~~
-    * Tìm kiếm sản phẩm trong gian hàng ($name là nội dung tìm kiếm):
+    * Đếm số hàng ở bảng trên , nếu > 0 tức là email đã được đăng ký 
+    ~~~~sql
+    $num = mysqli_num_rows($checkemail);
+    ~~~~
+    * Với mật khẩu , ta cũng có các bước kiểm tra như vậy (kiểm tra khi điều kiện về email đã đạt)
+    ~~~~sql
+    $checkPassword = mysqli_query($connect,"SELECT * FROM user WHERE email = '$email' and password = '$password';");               
+    $num2 = mysqli_num_rows($checkPassword);
+    $user = mysqli_fetch_array($checkPassword);
+    ~~~~
+* Trang chủ:
+    * Lấy bảng loại khóa học (type) 
+    ~~~~sql
+    $course = mysqli_query($connect,"SELECT * FROM courses WHERE type='{$array1['type']}'; ");
+    ~~~~
+    * Lấy ra các khóa học ứng với từng loại khóa học để xuất ra trang chủ với 2 trường hợp người dùng tìm kiếm và không tìm kiếm 
     ~~~sql
-    SELECT *, MATCH (`name`, `description`, `author`, `category`) AGAINST ('{$name}') as score 
-    FROM books 
-    WHERE MATCH (`name`, `description`, `author`, `category`) AGAINST ('{$name}') > 0 
-    ORDER BY score DESC;
+    while($array1 = mysqli_fetch_array($title)){ 
+                if ($search)
+                {
+                    $course = mysqli_query($connect,"SELECT * FROM courses WHERE type='{$array1['type']}' and course_name LIKE                                 '%$search%'; ");
+                }
+                else $course = mysqli_query($connect,"SELECT * FROM courses WHERE type='{$array1['type']}'; ");
     ~~~
-* Sản phẩm: 
-    * Lấy ra thông tin sản phẩm theo ID:
+    * Rà các khóa học để biết người dùng đang học (continue) hay chưa học (enroll) để in ra trang chủ  
+    ~~~~sql
+    while($array = mysqli_fetch_array($course)){
+         $findcourse = mysqli_query($connect , "SELECT * FROM user_courses WHERE user_id = {$_SESSION['user_id']} AND course_id =                '{$array['course_id']}'");
+         $numcourse = mysqli_num_rows($findcourse);
+         $name ="";
+         if ($numcourse > 0) $name = "Continue";
+         else $name = "Enroll me";
+    ~~~~
+    * Khi người dùng ấn vào enroll thì dữ liệu được thêm vào database
+    ~~~~sql
+    $result = mysqli_query($connect, "INSERT INTO user_courses (`course_id`, `user_id`) VALUES ('{$_SESSION['course_id']}',                 '{$_SESSION['user_id']}')");
+    ~~~~
+* Trang chi tiết khóa học
+    * Lấy thông tin chi tiết về khóa học và giáo viên dạy khóa học đó
     ~~~sql
-    SELECT * FROM books WHERE id = $id
+    $course1 = mysqli_query($connect,"SELECT * FROM `courses` LEFT JOIN `teacher` 
+         ON courses.teacher_id = teacher.teacher_id 
+         WHERE course_id = '{$_SESSION['course_id']}'; ");
+    $result = mysqli_fetch_array($course1);
     ~~~
-    * Lấy ra các sản phẩm liên quan (các sản phẩm cùng thể loại hoặc tác giả):
+    * -	Khi người dùng ấn nút “Leave course” , xóa dữ liệu
     ~~~sql
-    SELECT * FROM books 
-    WHERE (category = '$category' OR author = '$author') AND NOT id = '$id'
+    $result = mysqli_query($connect, "INSERT INTO user_courses (`course_id`, `user_id`) 
+    VALUES ('{$_SESSION['course_id']}', '{$_SESSION['user_id']}')");
     ~~~
-    * Tiến hành trừ số lượng hàng hóa trong kho (đây là hoạt động tự động khi sản phẩm được mua)
+* Trang admin
+    * Lấy bảng để hiển thị bảng các khóa học
     ~~~sql
-    UPDATE books 
-    SET amount = ({$amountofBooks['amount']} - {$product['quantity']}) , updated_at = NOW() 
-    WHERE id = '{$product['bookId']}'
+    $course = mysqli_query($connect,"SELECT * FROM courses ;");
     ~~~
-* Giỏ hàng:
-    * Lấy ra thông tin sách cẩn mua:
+    * Thêm khóa học
     ~~~sql 
-    SELECT * FROM books WHERE id = '$bookID'
+    $result = mysqli_query($connect, "INSERT INTO courses (course_name, type, description, image_link, youtube_link, teacher_id) 
+            VALUE ('$course_name', '$type', '$description', '$image_link', '$youtube_link', '$teacher_id');");
     ~~~
-    * Lấy ra thông tin các sản phẩm giỏ hàng của người dùng:
+    * Xóa khóa học
     ~~~sql
-    SELECT * FROM cart WHERE bookId = '$bookID' and userId = '$userId'
+    $result = mysqli_query($connect, "DELETE FROM courses WHERE course_id = $course_id ;");
     ~~~
-    * Thêm sản phẩm vào giỏ hàng:
-    ~~~sql
-    INSERT INTO cart(`userId`, `bookId`, `quantity`, `totalPayment`) 
-    VALUE ('{$userId}', '{$bookID}', '{$amount}', '{$total}')
-    ~~~
-    * Xóa sản phẩm trong giỏ hàng:
-    ~~~sql 
-    DELETE FROM cart WHERE id = {$delId}
-    ~~~
-    * Xóa toàn bộ sản phẩm trong giỏ hàng
-    ~~~sql
-    DELETE FROM cart WHERE userId = '{$userID}'
-    ~~~
-    * Tính tổng tiền và số lượng ($_SESSION['id'] là id của khách hàng hiện tại):
-    ~~~sql
-    SELECT SUM(`totalPayment`) as `totalPayment`, SUM(`quantity`) as `sumQuantity` 
-    FROM cart WHERE userId = '{$_SESSION["id"]}'
-    ~~~
-* Thanh toán
-    * Thêm thông tin đơn hàng:
-    ~~~sql
-    INSERT INTO orders(`orderId`, `userId`,`orderDate`, `methodShip`, `status`, `customerName`, `address`, `phoneNumber`) 
-    VALUES ('{$orderId}', '{$_SESSION['id']}', NOW(), '{$_SESSION['methodShip']}', '0', '{$name}','{$address}', '{$phone}')
-    ~~~
-    * Thêm thông tin chi tiết đơn hàng ($product: sản phảm lấy ra trong giỏ hàng của người dùng hiện tại):
-    ~~~sql 
-    INSERT INTO orderdetails(`orderId`, `bookId`, `quantity`, `totalPayment `)
-    VALUES ('{$orderId}', '{$product['bookId']}', '{$product['quantity']}', '{$product['totalPayment']}'
-    ~~~
-    * Sau khi đặt hàng thành công sẽ xóa toàn bộ sản phẩm trong giỏ hàng của người dùng hiện tại:
-    ~~~sql
-    DELETE FROM cart WHERE userId = '{$_SESSION['id']'
-    ~~~
-* Đơn hàng
-    * Lấy ra các đơn hàng của người dùng hiện tại:
-    ~~~sql
-    SELECT * FROM orders WHERE userId = '{$_SESSION['id']}'
-    ~~~
-* Chi tiết các đơn hàng:
-    * Lấy ra thông tin của đơn hàng:
-    ~~~sql
-    SELECT * FROM orderdetails WHERE orderId= '$orderID'
-    ~~~
-    * Tính tổng tiền và số lượng sản phẩm:
-    ~~~sql
-    SELECT SUM(`totalPayment`) as `totalPayment`, SUM(`quantity`) as `sumQuantity` 
-    FROM orderdetails 
-    WHERE orderId = '{$orderID}'
-    ~~~
-    * Lấy ra thông tin khách hàng, phương thức vận chuyển:
-    ~~~sql
-    SELECT * FROM orders WHERE orderId= '$orderID'
-    ~~~
-#### 2. Các truy vấn liên quan đến thao tác của người quản lý (admin)
-* Tổng hợp
-    * Tính doanh thu của cửa hàng theo ngày (xếp theo thời gian)
-    ~~~sql
-    SELECT orders.orderDate, SUM(totalPayment) AS total 
-    FROM `orderdetails`, orders 
-    WHERE orderdetails.orderId=orders.orderId 
-    GROUP BY orders.orderDate ORDER BY orders.orderDate DESC
-    ~~~
-    * Tổng hợp 
-      * Số lượng hàng hóa: 
-      ~~~sql
-      SELECT COUNT(*) AS solg FROM books
-      ~~~
-      * Số lượng người dùng đăng ký tài khoản: 
-      ~~~sql
-      SELECT COUNT(*) AS solg FROM users 
-      ~~~
-      * Số lượng các hóa đơn : 
-      ~~~sql
-      SELECT COUNT(*) AS solg FROM orders
-      ~~~    
-
-* Quản lý sản phẩm:
-    * Thêm sản phẩm:
-    ~~~sql
-    INSERT INTO books(`name`, `image`, `price`, `author`, category, description, amount,dateModified) 
-    VALUES ('{$name}', '{$img}', '{$price}', '{$author}', '{$category}', '{$description}', '{$amount}','{$dateModified}')
-    ~~~
-    * Xóa sản phẩm:
-    ~~~sql
-    DELETE FROM books WHERE id = '$id'
-    ~~~
-    * Chỉnh sửa sản phẩm:
-    ~~~sql
-    UPDATE books 
-    SET `name` = '$name', `image`= '$img', price = '$price', author = '$author', category = '$category', description = '$description', amount = '$amount', dateModified = '$dateModified', updated_at= NOW() 
-    WHERE id = '$id'
-    ~~~
-* Quản lý tài khoản (admin):
-    * Thêm tài khoản người quản lý:
-    ~~~sql
-    INSERT INTO admin (`name`, email, `password`, phoneNumber, avatar, created_at) 
-    VALUES ('$name' , '$email', '$password' , '$phoneNumber', '$avt', NOW())
-    ~~~
-    * Xóa tài khoản người quản lý:
-    ~~~sql
-    DELETE FROM admin  WHERE id = '$id'
-    ~~~
-    * Chỉnh sửa thông tin tài khoản người quản lý:
-    ~~~sql
-    UPDATE admin 
-    SET `name` ='$__name' , email = '$__email', `password` = '$__password', phoneNumber= '$__phoneNumber', avatar = '$img', updated_at= NOW() 
-    WHERE id = '$__id'
-    ~~~
-* Quản lý khách hàng
-    * Xóa tài khoản người dùng:
-    ~~~sql
-    DELETE FROM users WHERE id = '$id'
-    ~~~
-    * Chỉnh sửa tài khoản người dùng:
-    ~~~sql 
-    UPDATE users 
-    SET email = '$email', `name`= '$name', updated_at= NOW() 
-    WHERE id = '$id';
-    ~~~
-* Quản lý hóa đơn
-   * Lấy ra thông tin của toàn bộ hóa đơn đang có (xếp theo thời gian đặt hàng)
-    ~~~sql
-    SELECT *  FROM orders ORDER BY orderDate DESC
-    ~~~
+    
 
     
 
