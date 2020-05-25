@@ -31,18 +31,14 @@ b. Các chức năng của Admin
 |Thêm khóa học|Admin có thể thêm khóa học bằng cách điền cách thông tin cần thiết và ấn nút add|
 #### 3. Mô tả cơ sở dữ liệu
 a. Ứng dụng của cơ sở dữ liệu
-- Quản lý tài khoản khách hàng
-- Quản lý sản phẩm
-- Quản lý giỏ hàng của từng khách hàng
-- Quản lý các hóa đơn của từng khách hàng và của cả cửa hàng
-- Quản lý chi tiết của từng đơn hàng
+- Quản lý tài khoản người dùng
+- Quản lý khóa học
+- Quản lý giáo viên
 
 b. Các yêu cầu về dữ liệu cần lưu trữ:
-- Dữ liệu về khách hàng và người quản lý(admin) bao gồm: mã người dùng, tên, email, mật khẩu, ngày tạo
-- Dữ liệu về sản phẩm bao gồm: mã sách, tên sách, giá thành, mô tả, tác giả, thể loại, số lượng , link ảnh, ngày thêm
-- Dữ liệu về giỏ hàng bao gồm: mã người dùng, mã sách, số lượng sách, tổng hóa đơn
-- Dữ liệu về các hóa đơn bao gồm: mã hóa đơn, mã người dùng, ngày đặt hàng, phương thức vận chuyển, tình trạng, tên khách hàng, địa chỉ, số điện thoại
-- Dữ liệu về chi tiết từng hóa đơn bao gồm: mã hóa đơn, mã sách, số lượng, tổng tiền
+- Dữ liệu về tài khoản admin và tài khoản thường
+- Dữ liệu về khóa học
+- Dữ liệu về giáo viên
 
 ### <strong> II. THIẾT KẾ CƠ SỞ DỮ LIỆU </strong>
 #### 1. Thiết kế mô hình thực thể quan hệ
