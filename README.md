@@ -39,68 +39,11 @@ b. Các yêu cầu về dữ liệu cần lưu trữ:
 - Dữ liệu về tài khoản admin và tài khoản thường
 - Dữ liệu về khóa học
 - Dữ liệu về giáo viên
-
+- Dữ liệu về các khóa học người dùng tham gia
 ### <strong> II. THIẾT KẾ CƠ SỞ DỮ LIỆU </strong>
-#### 1. Thiết kế mô hình thực thể quan hệ
-* Tập thực thể tài khoản khách hàng:
-    * Mã khách hàng
-    * Tên khách hàng
-    * Email
-    * Mật khẩu
-    * Ngày tạo
-    * Ngày chỉnh sửa
-* Tập thực thể tài khoản người quản lý (admin):
-    * Mã người quản lý
-    * Tên
-    * Email
-    * Mật khẩu
-    * SDT
-    * Ảnh đại diện
-    * Ngày kích hoạt
-    * Ngày cập nhật
-* Tập thực thể sản phẩm (sách):
-    * Mã sách
-    * Tên sách
-    * Tác giả
-    * Giá
-    * Thể loại
-    * Mô tả
-    * Số lượng trong kho
-    * Ngày nhập kho
-    * Ngày cập nhật
-* Tập thực thể hóa đơn: 
-    * Mã hóa đơn
-    * Tên khách hàng
-    * Số điện thoại
-    * Địa chỉ
-    * Tình trạng vận chuyển
-    * Phương thức vận chuyển
+#### Mô hình cơ sở dữ liệu
 
-* Mô hình hóa ER:
-<!-- content -->
-![ER](https://github.com/manhkun/database/blob/alpha/img/ER.png)
-
-#### 2. Lược đồ quan hệ
-- <strong>Từ mô hình E-R, ta xây dựng mô hình quan hệ tương ứng:</strong>
-
-    - <strong>Chuyển các thực thể thành các quan hệ tương ứng: </strong> 
-
-        1. Tài khoản khách hàng(<ins>Mã khách hàng</ins>, Tên, Email, Mật khẩu)
-        1. Sách(<ins>Mã sách</ins>, Tên sách, Giá, Tác giả, Thể loại, Mô tả, Số lượng, Link ảnh, Ngày nhập)
-        1. Hóa đơn(<ins>Mã hóa đơn</ins>, Mã khách hàng, Ngày đặt hàng, Phương thức vận chuyển, Tình trạng, Tên khách hàng, Địa chỉ khách hàng, SDT)
-
-    - <strong>Chuyển đổi các mối quan hệ: </strong>
-        
-        1. Quan hệ "Chọn sản phẩm" -> Giỏ hàng(<ins>Mã giỏ hàng</ins>, Mã khách hàng, Mã sách, Số lượng, Tổng tiền)
-        1. Quan hệ "Chứa" -> Chi tiết hóa đơn(Mã hóa đơn, Mã sách, Số lượng, Tổng tiền)
-* Kết quả thu được: Lược đồ quan hệ:
-
-![Relational Model](https://github.com/manhkun/database/blob/alpha/img/RelationalModel.png)
-
-Lược đồ quan hệ trên MySQL:
-
-
-![Relational Model](https://github.com/manhkun/database/raw/alpha/img/databaseEER.png)
+![ER](https://github.com/tekoham/Course-Website/blob/master/images/designer.png)
 
 ### <strong>III. CÁC CÂU LỆNH TRUY VẤN SQL </strong>
 #### 1. Các truy vấn liên quan đến thao tác của khách hàng và lấy dữ liệu trong CSDL
