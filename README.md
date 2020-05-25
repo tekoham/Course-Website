@@ -13,9 +13,7 @@
 <!-- CONTENT -->
 ### <strong> I. MÔ TẢ DỰ ÁN </strong>
 #### 1. Mô tả chung:
-- Trang web được tạo ra nhằm mục đích phục vụ cho cửa hàng bán sách trên nền tảng trực tuyến
-- Khách hàng có thể xem, chọn mua các sản phẩm sách của cửa hàng
-- Cửa hàng có thể xem được các đơn hàng khách hàng đặt mua, quản lý các đơn hàng, sản phẩm của cửa hàng
+- Tham gia khoá học lập trình để nâng cao kỹ năng bản thân!
 #### 2. Mô tả chức năng
 a. Các chức năng của khách hàng
 |Chức năng|Mô tả|
