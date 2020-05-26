@@ -41,6 +41,9 @@ b. Các yêu cầu về dữ liệu cần lưu trữ:
 - Dữ liệu về giáo viên
 - Dữ liệu về các khóa học người dùng tham gia
 ### <strong> II. THIẾT KẾ CƠ SỞ DỮ LIỆU </strong>
+#### Thiết kế mô hình thực thể ER
+![ER](https://github.com/tekoham/Course-Website/blob/master/images/ER-diagram.png)
+
 #### Mô hình cơ sở dữ liệu
 
 ![ER](https://github.com/tekoham/Course-Website/blob/master/images/designer.png)
